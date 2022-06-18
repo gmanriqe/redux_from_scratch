@@ -7,3 +7,7 @@ https://redux-toolkit.js.org/
 https://redux-toolkit.js.org/rtk-query/overview
 https://tailwindcss.com/
 https://tailwindcss.com/docs/installation
+
+## API
+
+https://rapidapi.com/rapidapi/api/movie-database-alternative/
