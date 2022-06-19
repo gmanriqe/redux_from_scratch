@@ -21,3 +21,5 @@ export const moviesApi = createApi({
     })
 })
 
+export const { useFetchMoviesQuery } = moviesApi
+
