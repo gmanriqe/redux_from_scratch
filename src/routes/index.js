@@ -10,7 +10,7 @@ const RoutesComponent = () => (
     <BrowserRouter>
         <Routes>
             <Route path="/" element={<Home/>} />
-            <Route path="/results" element={<Results />} />
+            <Route path="/results/:title" element={<Results />} />
             <Route path="/detail" element={<Detail />} />
             
             <Route path="*" element={<div>404</div>} />
