@@ -11,3 +11,4 @@ https://tailwindcss.com/docs/installation
 ## API
 
 https://rapidapi.com/rapidapi/api/movie-database-alternative/
+https://rapidapi.com/SAdrian/api/moviesdatabase/
