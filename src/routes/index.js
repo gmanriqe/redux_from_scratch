@@ -11,7 +11,7 @@ const RoutesComponent = () => (
         <Routes>
             <Route path="/" element={<Home/>} />
             <Route path="/results/:title" element={<Results />} />
-            <Route path="/detail" element={<Detail />} />
+            <Route path="/detail/:movieId" element={<Detail />} />
             
             <Route path="*" element={<div>404</div>} />
         </Routes>
