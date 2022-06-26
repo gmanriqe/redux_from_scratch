@@ -19,6 +19,7 @@ export const successFetchMovieRatings = createAction('SUCCESS_FETCH_MOVIE_RATING
 export const errorFetchMovieRatings = createAction('ERROR_FETCH_MOVIE_RATING');
 
 // Debemos definir una función exportable
+// fetchMovieRatings = thunk
 export const fetchMovieRatings = (movieId) => async (dispatch) => { // fetchMovieRatings = middleware
     try {
         // Dentro del try debemos disparar (dispatch) cada una de las actiones definidas anteriormente. Asi el reducer podrá detectar
@@ -27,9 +28,9 @@ export const fetchMovieRatings = (movieId) => async (dispatch) => { // fetchMovi
         dispatch(startFetchMovieRatings()); // Debemos avisarle al reducer que estamos empezando a obtener los datos
 
         // iniciar la llamada al endPoint
-        const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options )
+        const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options)
         const data = await response.json();
-        
+
         dispatch(successFetchMovieRatings({ data }))// Salio exitoso
     } catch (error) {
         dispatch(errorFetchMovieRatings({ error }))
@@ -40,14 +41,21 @@ export const startFetchMovieDetail = createAction('START_FETCH_MOVIE_DETAIL');
 export const successFetchMovieDetail = createAction('SUCCESS_FETCH_MOVIE_DETAIL');
 export const errorFetchMovieDetail = createAction('ERROR_FETCH_MOVIE_RATING');
 
+// fetchMovieDetail = thunk
 export const fetchMovieDetail = (movieId) => async (dispatch) => {
     try {
         dispatch(startFetchMovieRatings());
-        
-        const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options )
-        const data = await response.json();
-        
-        dispatch(successFetchMovieRatings({ data }))
+
+        const overviewDetailtRatingsResponse = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options)
+        const overviewDetailtRatingsData = await overviewDetailtRatingsResponse.json();
+
+        const overviewDetailtTitleResponse = await fetch(`${BASE_URL}/titles/${movieId}`, options)
+        const overviewDetailtTitleData = await overviewDetailtTitleResponse.json();
+
+        dispatch(successFetchMovieRatings({
+            overviewRatings: overviewDetailtRatingsData,
+            overviewTitle: overviewDetailtTitleData
+        }))
     } catch (error) {
         dispatch(errorFetchMovieRatings({ error }))
     }

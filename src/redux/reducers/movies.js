@@ -3,41 +3,77 @@
 // Lo mejor es evaluar un SWITCH para cada actions (action.type)
 // y devolver el estado actual modificado
 // Si no se encuentra el type en el SWITCH, se devuelve el estado actual
-import { errorFetchMovieRatings, startFetchMovieRatings, successFetchMovieRatings } from "../actions/movies"
+import {
+    errorFetchMovieRatings,
+    startFetchMovieRatings,
+    successFetchMovieRatings,
+    startFetchMovieDetail,
+    successFetchMovieDetail,
+    errorFetchMovieDetail
+} from "../actions/movies"
 
 // banderas
 const initialState = {
-    isFetching: false,
+    isFetchingMovieRatings: false,
+    isFetchingMovieDetail: false,
     isLoading: true,
-    error: null,
-    success: null,
-    rating: {}
+    errorFetchingMovieRatings: null,
+    errorFetchingMovieDetail: null,
+    successFetchingMovieRatings: null,
+    successFetchingMovieDetail: null,
+    ratings: {},
+    movieDetail: {}
 }
 const moviesReducer = (state = initialState, action) => {
     switch (action.type) {
+        // thunk fetchMovieRatings
         case startFetchMovieRatings.toString():
             return {
                 ...state,
                 isLoading: false,
-                isFetching: true,
+                isFetchingMovieRatings: true,
             }
         case successFetchMovieRatings.toString():
             return {
                 ...state,
                 isLoading: false,
-                isFetching: false,
+                isFetchingMovieRatings: false,
                 ratings: action.payload.data.results,
-                success: true,
-                error: null
+                successFetchingMovieRatings: true,
+                errorFetchingMovieRatings: null
             }
         case errorFetchMovieRatings.toString():
             return {
                 ...state,
                 isLoading: false,
-                isFetching: false,
+                isFetchingMovieRatings: false,
                 ratings: {},
-                success: false,
-                error: action.payload.error
+                successFetchingMovieRatings: false,
+                errorFetchingMovieRatings: action.payload.error
+            }
+        // thunk fetchMovieDetail
+        case startFetchMovieDetail.toString():
+            return {
+                ...state,
+                isFetchingMovieDetail: true,
+            }
+        case successFetchMovieDetail.toString():
+            return {
+                ...state,
+                isFetchingMovieDetail: true,
+                movieDetail: {
+                    ...action.payload // consume el payload de la action
+                },
+                successFetchingMovieDetail: true,
+                errorFetchingMovieDetail: null
+            }
+        case errorFetchMovieDetail.toString():
+            return {
+                ...state,
+                isFetchingMovieDetail: false,
+                ratings: {},
+                successFetchingMovieDetail: false,
+                errorFetchingMovieDetail: action.payload.error,
             }
         default:
             return state
