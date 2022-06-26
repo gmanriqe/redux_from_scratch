@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 // useSelector --> para obtener el estado actual
 import { useDispatch, useSelector } from "react-redux"
 
-import { fetchMovieRatings } from "../../redux/actions/movies"
+import { fetchMovieRatings, fetchMovieDetail } from "../../redux/actions/movies"
 
 // const Details = () => <div>Detail</div>
 const Details = () => {
@@ -18,8 +18,15 @@ const Details = () => {
         ratings
     } = useSelector((state) => state.moviesReducer) // alistamos a nuestros componentes al cambio de estado
 
+    // un useEffect por cada thunk
     useEffect(() => {
         dispatch(fetchMovieRatings(movieId)) // dispara (dispatch) la action cuando el componente se monte
+    }
+        , [dispatch, movieId]) // solo se ejecuta cuando movieId cambie
+
+    // un useEffect por cada thunk
+    useEffect(() => {
+        dispatch(fetchMovieDetail(movieId)) // dispara (dispatch) la action cuando el componente se monte
     }
         , [dispatch, movieId]) // solo se ejecuta cuando movieId cambie
 

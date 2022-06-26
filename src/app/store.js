@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import {moviesApi} from '../redux/api/movies';
-// importando el reducer de movies
+// importando el reducer de movies 
 import moviesReducer from '../redux/reducers/movies';
 
 export const store = configureStore({
@@ -9,5 +9,7 @@ export const store = configureStore({
         [moviesApi.reducerPath]: moviesApi.reducer,
         moviesReducer
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(moviesApi.middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+        serializableCheck: false,
+      }).concat(moviesApi.middleware),
 });

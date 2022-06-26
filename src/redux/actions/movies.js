@@ -44,7 +44,7 @@ export const errorFetchMovieDetail = createAction('ERROR_FETCH_MOVIE_RATING');
 // fetchMovieDetail = thunk
 export const fetchMovieDetail = (movieId) => async (dispatch) => {
     try {
-        dispatch(startFetchMovieRatings());
+        dispatch(startFetchMovieDetail());
 
         const overviewDetailtRatingsResponse = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options)
         const overviewDetailtRatingsData = await overviewDetailtRatingsResponse.json();
@@ -52,12 +52,12 @@ export const fetchMovieDetail = (movieId) => async (dispatch) => {
         const overviewDetailtTitleResponse = await fetch(`${BASE_URL}/titles/${movieId}`, options)
         const overviewDetailtTitleData = await overviewDetailtTitleResponse.json();
 
-        dispatch(successFetchMovieRatings({
+        dispatch(successFetchMovieDetail({
             overviewRatings: overviewDetailtRatingsData,
             overviewTitle: overviewDetailtTitleData
         }))
     } catch (error) {
-        dispatch(errorFetchMovieRatings({ error }))
+        dispatch(errorFetchMovieDetail({ error }))
     }
 }
 
