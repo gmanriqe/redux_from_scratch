@@ -36,6 +36,22 @@ export const fetchMovieRatings = (movieId) => async (dispatch) => { // fetchMovi
     }
 }
 
+export const startFetchMovieDetail = createAction('START_FETCH_MOVIE_DETAIL');
+export const successFetchMovieDetail = createAction('SUCCESS_FETCH_MOVIE_DETAIL');
+export const errorFetchMovieDetail = createAction('ERROR_FETCH_MOVIE_RATING');
+
+export const fetchMovieDetail = (movieId) => async (dispatch) => {
+    try {
+        dispatch(startFetchMovieRatings());
+        
+        const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options )
+        const data = await response.json();
+        
+        dispatch(successFetchMovieRatings({ data }))
+    } catch (error) {
+        dispatch(errorFetchMovieRatings({ error }))
+    }
+}
 
 /*
 // Redux saga y Redux thunk (creado por los desarrolladores de redux toolkit)

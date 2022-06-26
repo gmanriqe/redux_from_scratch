@@ -8,18 +8,17 @@ import { errorFetchMovieRatings, startFetchMovieRatings, successFetchMovieRating
 // banderas
 const initialState = {
     isFetching: false,
-    isLoading: false,
+    isLoading: true,
     error: null,
     success: null,
     rating: {}
 }
 const moviesReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         case startFetchMovieRatings.toString():
             return {
                 ...state,
-                isLoading: true,
+                isLoading: false,
                 isFetching: true,
             }
         case successFetchMovieRatings.toString():
