@@ -5,25 +5,40 @@
 // Si no se encuentra el type en el SWITCH, se devuelve el estado actual
 import { errorFetchMovieRatings, startFetchMovieRatings, successFetchMovieRatings } from "../actions/movies"
 
-const moviesReducer = (state = {}, action) => {
-    console.log(state, action)
+// banderas
+const initialState = {
+    isFetching: false,
+    isLoading: false,
+    error: null,
+    success: null,
+    rating: {}
+}
+const moviesReducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         case startFetchMovieRatings.toString():
             return {
                 ...state,
-                loading: true
+                isLoading: true,
+                isFetching: true,
             }
         case successFetchMovieRatings.toString():
             return {
                 ...state,
-                loading: false,
-                data: action.data
+                isLoading: false,
+                isFetching: false,
+                ratings: action.payload.data.results,
+                success: true,
+                error: null
             }
         case errorFetchMovieRatings.toString():
             return {
                 ...state,
-                loading: false,
-                error: action.error
+                isLoading: false,
+                isFetching: false,
+                ratings: {},
+                success: false,
+                error: action.payload.error
             }
         default:
             return state
