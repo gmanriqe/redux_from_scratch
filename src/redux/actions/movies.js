@@ -29,7 +29,6 @@ export const fetchMovieRatings = (movieId) => async (dispatch) => { // fetchMovi
         // iniciar la llamada al endPoint
         const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options )
         const data = await response.json();
-        console.log(data)
         
         dispatch(successFetchMovieRatings({ data }))// Salio exitoso
     } catch (error) {
