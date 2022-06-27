@@ -25,6 +25,7 @@ const initialState = {
     movieDetail: {}
 }
 const moviesReducer = (state = initialState, action) => {
+    console.log(action)
     switch (action.type) {
         // thunk fetchMovieRatings
         case startFetchMovieRatings.toString():
@@ -38,7 +39,7 @@ const moviesReducer = (state = initialState, action) => {
                 ...state,
                 isLoading: false,
                 isFetchingMovieRatings: false,
-                ratings: action.payload.data.results,
+                ratings: action.payload,
                 successFetchingMovieRatings: true,
                 errorFetchingMovieRatings: null
             }
@@ -60,7 +61,7 @@ const moviesReducer = (state = initialState, action) => {
         case successFetchMovieDetail.toString():
             return {
                 ...state,
-                isFetchingMovieDetail: true,
+                isFetchingMovieDetail: false,
                 movieDetail: {
                     ...action.payload // consume el payload de la action
                 },

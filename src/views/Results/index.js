@@ -1,5 +1,5 @@
 import moviesImage from '../../assets/images/into_search.png'
-import Loading from './components/loading';
+import Loading from '../../components/Loading';
 import List from './components/List';
 
 import { useParams } from 'react-router-dom';
@@ -25,7 +25,7 @@ const Results = () => {
 
         // si esta cargando o si está trayendo información (esta haciendo fetching), muestrame el loading; sino no muestres nada.
         if (isLoading || isFetching) {
-            return <Loading />
+            return <Loading message="Buscando peliculas..."/>
         }
 
         // si es success y movies.results existe, mostraremos resultados; sino no muestro nada.
