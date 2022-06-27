@@ -47,11 +47,11 @@ const Details = () => {
         return (
             <>
                 <LeftContainer
-                    imageUrl={movieDetail?.overviewTitle?.results?.primaryImage?.url}
+                    imageUrl={movieDetail.overviewTitle.results.primaryImage?.url}
                 />
                 <RightContainer
-                    movieTitle={movieDetail?.overviewTitle?.results?.primaryImage?.caption?.plainText}
-                    movieRating={ratings?.data?.results?.averageRating}
+                    movieTitle={movieDetail.overviewTitle.results.primaryImage?.caption?.plainText ?? 'SIN TITULO (No disponible)'}
+                    movieRating={ratings.data.results?.averageRating ?? 'Sin rating'}
                 />
             </>
         )
