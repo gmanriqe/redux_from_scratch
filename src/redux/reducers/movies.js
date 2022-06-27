@@ -61,7 +61,7 @@ const moviesReducer = (state = initialState, action) => {
         case successFetchMovieDetail.toString():
             return {
                 ...state,
-                isFetchingMovieDetail: true,
+                isFetchingMovieDetail: false,
                 movieDetail: {
                     ...action.payload // consume el payload de la action
                 },
