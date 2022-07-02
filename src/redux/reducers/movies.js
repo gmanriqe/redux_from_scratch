@@ -25,7 +25,6 @@ const initialState = {
     movieDetail: {}
 }
 const moviesReducer = (state = initialState, action) => {
-    console.log(action)
     switch (action.type) {
         // thunk fetchMovieRatings
         case startFetchMovieRatings.toString():

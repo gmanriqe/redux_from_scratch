@@ -1,5 +1,14 @@
 import { createAction } from "@reduxjs/toolkit";
 
+import {
+    startFetchMovieRatings as startFetchMovieRatingsSlice,
+    successFetchMovieRatings as successFetchMovieRatingsSlice,
+    errorFetchMovieRatings as errorFetchMovieRatingsSlice,
+    startFetchMovieDetail as startFetchMovieDetailSlice,
+    successFetchMovieDetail as successFetchMovieDetailSlice,
+    errorFetchMovieDetail as errorFetchMovieDetailSlice
+} from "../slices/movies";
+
 const BASE_URL = "https://moviesdatabase.p.rapidapi.com";
 // const headers = {
 //     'X-RapidAPI-Key': 'a80741a64cmshdb76c10f99153bbp1c5354jsn1bd733e8afb1',
@@ -25,15 +34,18 @@ export const fetchMovieRatings = (movieId) => async (dispatch) => { // fetchMovi
         // Dentro del try debemos disparar (dispatch) cada una de las actiones definidas anteriormente. Asi el reducer podrá detectar
         // cada uno de los nombres, ejemplo: START_FETCH_MOVIE_RATING, SUCCESS_FETCH_MOVIE_RATING y ERROR_FETCH_MOVIE_RATING
         // y asi pueda actualizar el estado global de store
-        dispatch(startFetchMovieRatings()); // Debemos avisarle al reducer que estamos empezando a obtener los datos
+        // dispatch(startFetchMovieRatings()); // Debemos avisarle al reducer que estamos empezando a obtener los datos
+        dispatch(startFetchMovieRatingsSlice());
 
         // iniciar la llamada al endPoint
         const response = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options)
         const data = await response.json();
 
-        dispatch(successFetchMovieRatings({ data }))// Salio exitoso
+        // dispatch(successFetchMovieRatings({ data }))// Salio exitoso
+        dispatch(successFetchMovieRatingsSlice({ data }))
     } catch (error) {
-        dispatch(errorFetchMovieRatings({ error }))
+        // dispatch(errorFetchMovieRatings({ error }))
+        dispatch(errorFetchMovieRatingsSlice({ error }))
     }
 }
 
@@ -44,7 +56,8 @@ export const errorFetchMovieDetail = createAction('ERROR_FETCH_MOVIE_RATING');
 // fetchMovieDetail = thunk
 export const fetchMovieDetail = (movieId) => async (dispatch) => {
     try {
-        dispatch(startFetchMovieDetail());
+        // dispatch(startFetchMovieDetail());
+        dispatch(startFetchMovieDetailSlice());
 
         const overviewDetailtRatingsResponse = await fetch(`${BASE_URL}/titles/${movieId}/ratings`, options)
         const overviewDetailtRatingsData = await overviewDetailtRatingsResponse.json();
@@ -52,12 +65,19 @@ export const fetchMovieDetail = (movieId) => async (dispatch) => {
         const overviewDetailtTitleResponse = await fetch(`${BASE_URL}/titles/${movieId}`, options)
         const overviewDetailtTitleData = await overviewDetailtTitleResponse.json();
 
+        /*
         dispatch(successFetchMovieDetail({
             overviewRatings: overviewDetailtRatingsData,
             overviewTitle: overviewDetailtTitleData
         }))
+        */
+        dispatch(successFetchMovieDetailSlice({
+            overviewRatings: overviewDetailtRatingsData,
+            overviewTitle: overviewDetailtTitleData
+        }))
     } catch (error) {
-        dispatch(errorFetchMovieDetail({ error }))
+        // dispatch(errorFetchMovieDetail({ error }))
+        dispatch(errorFetchMovieDetailSlice({ error }))
     }
 }
 
