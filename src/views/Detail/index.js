@@ -25,7 +25,10 @@ const Details = () => {
         // successFetchingMovieDetail,
         ratings,
         movieDetail
-    } = useSelector((state) => state.moviesReducer) // alistamos a nuestros componentes al cambio de estado
+    } = useSelector((state) => state.moviesReducerSlice) // alistamos a nuestros componentes al cambio de estado
+
+    const state = useSelector((state) => state)
+    console.log(state)
 
     // un useEffect por cada thunk
     useEffect(() => {
@@ -42,8 +45,8 @@ const Details = () => {
             return <Loading message="obteniendo información de la película..." />
         } else if (errorFetchingMovieDetail || errorFetchingMovieRatings) {
             return <p>Ha ocurrido un error al obtener la informacion de la pelicula</p>
-        } 
-        
+        }
+
         return (
             <>
                 <LeftContainer
